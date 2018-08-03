@@ -1,0 +1,34 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <li><a href="#"><i class="fa fa-files-o fa-fw"></i> Sample
+						Pages<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="${ctx}/blank.html">Blank Page</a></li>
+						<li><a href="${ctx}/logout">Login Page</a></li>
+					</ul> <!-- /.nav-second-level --></li> --%>
+</ul>
+<!-- /#side-menu -->
+</div>
+<!-- /.sidebar-collapse -->
+</div>
+<!-- /.navbar-static-side -->
+</nav>
+<script src="${ctx}/js/staLetter/StaLetterMsgList.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#menuToggle").click(function(){
+		$(".navbar-static-side").toggle('fast');
+		if($("#page-wrapper").css("margin-left") == '0px'){
+			$("#page-wrapper").css("margin-left",'250px');
+			$("#menuChange").removeClass("glyphicon-circle-arrow-right").addClass("glyphicon-circle-arrow-left").attr("title","关闭菜单");
+		}else{
+			$("#page-wrapper").css("margin-left",'0px');
+			$("#menuChange").removeClass("glyphicon-circle-arrow-left").addClass("glyphicon-circle-arrow-right").attr("title","打开菜单");
+		}  
+	});
+	$(".navbar-static-side").css("height",$(window).height()-53); 
+});
+</script>
+
+
+
+

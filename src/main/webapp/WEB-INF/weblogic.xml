@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE weblogic-web-app PUBLIC
+    "-//BEA Systems, Inc.//DTD Web Application 8.1//EN"
+    "http://www.bea.com/servers/wls810/dtd/weblogic810-web-jar.dtd">
+<weblogic-web-app>
+
+	<jsp-descriptor>
+		<jsp-param>
+			<param-name>keepgenerated</param-name>
+			<param-value>true</param-value>
+		</jsp-param>
+		<jsp-param>
+			<param-name>compilerSupportsEncoding</param-name>
+			<param-value>true</param-value>
+		</jsp-param>
+		<jsp-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</jsp-param>
+	</jsp-descriptor>
+	<charset-params>
+		<input-charset>
+			<resource-path>/*</resource-path>
+			<java-charset-name>UTF-8</java-charset-name>
+		</input-charset>
+	</charset-params>
+
+	<container-descriptor>
+		<!-- 指示优先从部署项目的WEB-INF/lib目录下加载jar包，解决WegLogic与hibernate包冲突问题 -->
+		<prefer-web-inf-classes>false</prefer-web-inf-classes>
+		<prefer-application-packages>
+			<package-name>org.slf4j.*</package-name>
+			<package-name>org.apache.commons.*</package-name>
+			<package-name>antlr.*</package-name>
+		</prefer-application-packages>
+
+		<prefer-application-resources>
+			<resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>
+		</prefer-application-resources>
+		<!-- servlet-reload-check-secs的默认值也是1，每隔1秒检查servlet是否被修改并需要重新编译， 很影响性能。这里建议修改为-1，表示永不检查 -->
+		<servlet-reload-check-secs>-1</servlet-reload-check-secs>
+	</container-descriptor>
+
+	<context-root>/pdfb4</context-root>
+</weblogic-web-app>

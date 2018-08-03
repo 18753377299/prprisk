@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- defaultdir指定装饰器文件所在的路径 -->
+<decorators defaultdir="/WEB-INF/layout">
+	<!--excludes结点则指定了哪些路径的请求不使用任何模板 -->
+	<excludes>
+		<pattern>/static/*</pattern>
+		<pattern>/webjars/*</pattern>
+		<pattern>/signup</pattern>
+		<pattern>/signup/*</pattern>
+		<pattern>*.do</pattern>
+		<pattern>/login*</pattern>
+		<pattern>/login</pattern>
+		<pattern>/menu/systemMenu/.*</pattern>
+		<pattern>/*.html</pattern>
+		<pattern>*.dialog</pattern>
+		<pattern>*.ajax</pattern>
+		<pattern>/sysUser/preRegist</pattern>
+		<pattern>/sysUser/prePassword</pattern>
+		<pattern>/sysUser/preResetPassword</pattern>
+		<pattern>/sysUser/register</pattern>
+		<pattern>/sysCompany/edit/*</pattern>
+		<pattern>/lookup/*</pattern>
+		<pattern>/barcode/prepareForm.do*</pattern>
+		<pattern>/barcode/encoder.do*</pattern>
+		<pattern>/barcode/decoder.do*</pattern>
+		<pattern>/coding/demoPage/*</pattern>
+		<pattern>/showcase/requirejs/*</pattern>
+		
+	</excludes>
+	<!--decorator结点指定了模板的位置和文件名，通过pattern来指定哪些路径引用哪个模板 -->
+	<decorator name="main" page="main.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+	<decorator name="list" page="list.jsp">
+		<pattern>*/list</pattern>
+		<pattern>*/*List*</pattern>
+	</decorator>
+	<decorator name="spcList" page="list.jsp">
+		<pattern>/spc/list/*</pattern>
+	</decorator>
+
+	<decorator name="onlypage" page="onlypage.jsp">
+		<pattern>/insure/createIframe</pattern>
+	</decorator>
+
+</decorators>

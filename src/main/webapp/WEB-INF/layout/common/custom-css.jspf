@@ -1,0 +1,48 @@
+<style type="text/css">
+/**
+input:focus {
+	border: 1px dotted black;
+}
+ 
+
+label.error {
+	display: block;
+	color: red;
+	font-style: italic;
+	font-weight: normal;
+}
+input.error {
+	border: 2px solid red;
+}
+*/
+/* input.form-control { */
+/* 	height: 25px !important; */
+/* } */
+/*
+.control-label {
+	float: right !important;
+}
+
+.form-group {
+	margin-bottom: 5px !important;
+}
+.dataTables_length label{
+	font-weight: 300 !important;
+	padding-top: 0.455em; 
+}
+
+*/
+button.btn-outline {
+	background: #3c8dbc !important;
+	float: inherit !important;
+}
+
+.content-header {
+	padding: 0px 0px 0 0px !important;
+}
+/*
+.content-wrapper {
+  height: 1036px;  
+}
+*/
+</style>

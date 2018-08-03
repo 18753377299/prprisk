@@ -1,0 +1,75 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--[if lt IE 9]> 
+	<script src="${ctx}/static/respond/${respond_version}/dest/respond.min.js"></script>	
+	<script src="${ctx}/static/html5shiv/${html5shiv_version}/html5shiv.js"></script>
+<![endif]-->
+<!-- Core Scripts - Include with every page -->
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="${ctx}/static/datetimepicker/${datetimepicker_version}/js/bootstrap-datetimepicker.min.js"></script>
+<!-- TODO:这里最终需要国际化 -->
+<script
+	src="${ctx}/static/datetimepicker/${datetimepicker_version}/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script
+	src="${ctx}/static/jquery-validation/${jquery_validation_version}/jquery.validate.min.js"></script>
+<script
+	src="${ctx}/static/jquery-validation/${jquery_validation_version}/additional-methods.min.js"></script>
+<script src="${ctx}/static/qtip2/${qtip2_version}/jquery.qtip.min.js"></script>
+<script src="${ctx}/static/bootbox/${bootbox_version}/bootbox.js"></script>
+<!-- Select2 -->
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/select2/select2.full.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/fastclick/fastclick.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/dist/js/app.min.js"></script>
+<script type="text/javascript"
+	src="${ctx}/static/bootstrap-modal/${bootstrap_modal_version}/js/bootstrap-modal.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="${ctx}/static/bootstrap-modal/${bootstrap_modal_version}/js/bootstrap-modalmanager.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="${ctx}/static/echarts/${echarts_version}/js/echarts.min.js"
+	charset="utf-8"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/input-mask/jquery.inputmask.js"
+	type='text/javascript' charset="utf-8"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/input-mask/jquery.inputmask.date.extensions.js"
+	type='text/javascript' charset="utf-8"></script>
+<script
+	src="${ctx}/static/adminlte/${adminlte_version}/plugins/input-mask/jquery.inputmask.extensions.js"
+	type='text/javascript' charset="utf-8"></script>
+<script src="${ctx}/static/vue/${vue_version}/vue.min.js"></script>
+<script src="${ctx}/static/vue/${vue_version}/vue-datepicker.js"></script>
+<script src="${ctx}/static/vue/${vue_version}/vue-starrate.js"></script>
+<script
+	src="${ctx}/static/bootstrap-score-picker/${score_version}/js/star-rating.js"></script>
+<script type="text/javascript">
+	var contextPath = "${ctx}";
+	$(function() {
+		$(".select2").select2();
+	});
+	function getCookie(name) {
+		var strCookie = document.cookie;
+		var arrCookie = strCookie.split("; ");
+		for (var i = 0; i < arrCookie.length; i++) {
+			var arr = arrCookie[i].split("=");
+			if (arr[0] == name)
+				return unescape(arr[1]);
+		}
+		return "";
+	}
+</script>

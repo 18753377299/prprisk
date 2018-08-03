@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Flyway Config</comment>
+	<entry key="flyway.locations"><![CDATA[db/platform]]></entry>
+	<entry key="flyway.clean"><![CDATA[true]]></entry>
+</properties>

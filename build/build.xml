@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<project name="pdfbpoc" basedir=".." default="deployApp">
+	<!-- 引入环境变量 -->
+	<property environment="env" />
+
+	<!-- 版本构建时间 -->
+	<tstamp>
+		<format property="version.date" pattern="yyyyMMdd_HHmmss" />
+	</tstamp>
+
+	<!-- Load the jsch lib -->
+	<path id="jsch.class.path">
+		<pathelement location="${env.ANT_HOME}/lib/ant-jsch.jar" />
+		<pathelement location="${env.ANT_HOME}/lib/jsch-0.1.53.jar" />
+	</path>
+	<taskdef name="scp" classname="org.apache.tools.ant.taskdefs.optional.ssh.Scp"
+		classpathref="jsch.class.path" />
+	<taskdef name="sshexec"
+		classname="org.apache.tools.ant.taskdefs.optional.ssh.SSHExec"
+		classpathref="jsch.class.path" />
+
+	<!--Task definition for Ant-Contrib -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+	<property file="${basedir}/build/build_compile.properties" />
+	<property
+		file="${basedir}/build/build_deploy_${external.param.env}.properties" />
+	<property file="${basedir}/build/build_check.properties" />
+
+
+	<!-- 以下一般均无需修改 -->
+
+	<property name="weblogic.deploy.para"
+		value="weblogic.Deployer -adminurl t3://${server.ip}:${domain.port} -username ${domain.user} -password ${domain.password}"
+		description="部署参数，一般无需修改" />
+	<property name="weblogic.undeploy"
+		value="${server.javahome}/bin/java -cp ${weblogic.lib}/weblogic.jar ${weblogic.deploy.para}  -undeploy -name ${project.name}"
+		description="undeploy，一般无需修改" />
+	<property name="weblogic.deploy"
+		value="${server.javahome}/bin/java -cp ${weblogic.lib}/weblogic.jar ${weblogic.deploy.para} -deploy  ${server.apphome}"
+		description="deploy，一般无需修改" />
+
+	<property name="append.weblogic.deploy"
+		value="${server.javahome}/bin/java -cp ${weblogic.lib}/weblogic.jar ${weblogic.deploy.para} -deploy  ${server.baseapphome}"
+		description="deploy，一般无需修改" />
+
+	<property name="unzip"
+		value="cd ${server.apphome};${server.javahome}/bin/jar -xf ${full.package.name}"
+		description="解包" />
+	<property name="backup"
+		value="mv ${server.apphome}/${project.name} ${server.apphome}/${project.name}${version.date}"
+		description="备份应用" />
+	<property name="movenewapp" value="mv ${server.newapphome} ${server.apphome}/"
+		description="将新版本移动至部署目录" />
+
+	<property name="db.bat" value="executesql.sh" description="informix版本：executesql.sh文件名" />
+	<!-- property name="db.bat" value="D:\Ora10InstantClient\sqlplus.exe" description="oracle版本：sqlplus的绝对路径"/ -->
+	<property name="newversion.appendfile"
+		value="${basedir}/build/${project.version}/${project.version}.updatelist.txt"
+		description="增量更新版本的打包清单" />
+	<property name="package.excludesfile"
+		value="${basedir}/build/${project.version}/excludeslist.txt"
+		description="不需要打进程序包的文件清单" />
+	<property name="newversion.sqlfile" value="${project.version}.sql"
+		description="本次版本的数据库脚本文件" />
+	<property name="zip_name" value="${project.name}${project.version}软件包.zip" />
+
+	<!-- 外部包引用 -->
+	<path id="classpath">
+		<pathelement location="${classes.dir}" />
+		<fileset dir="${classpath.lib}">
+			<patternset>
+				<include name="*.jar" />
+			</patternset>
+		</fileset>
+	</path>
+
+	<!--清理目标位置 -->
+	<target name="clean">
+		<delete dir="${classes.dir}" />
+		<delete dir="${target.dir}" />
+	</target>
+
+	<!--自动化流程开始 -->
+	<!--初始化 并拷入需要打包进jar包的非class编译文件 -->
+	<target name="init" depends="clean">
+		<mkdir dir="${target.dir}" />
+		<mkdir dir="${classes.dir}" />
+		<copy todir="${classes.dir}" filtering="false">
+			<fileset dir="${classpath.resources}">
+				<!--对于classpath.java和classpath.resources在同一目录下的情况，拷贝配置文件不含java文件 -->
+				<patternset>
+					<exclude name="**/*.java" />
+				</patternset>
+			</fileset>
+		</copy>
+		<copy todir="${classes.dir}" filtering="false">
+			<fileset dir="${classpath.java}">
+				<!--对于classpath.java和classpath.resources在同一目录下的情况，拷贝配置文件不含java文件 -->
+				<patternset>
+					<exclude name="**/*.java" />
+				</patternset>
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- 编译 -->
+	<target name="compile" depends="init">
+		<javac nowarn="on" target="${compile.level}" source="${compile.level}"
+			srcdir="${classpath.java}" destdir="${classes.dir}" classpathref="classpath"
+			fork="true" debug="true" includeAntRuntime="false" memoryInitialSize="256m"
+			memoryMaximumSize="512m" encoding="${compile.encoding}" />
+	</target>
+
+	<!-- 打全量包 -->
+	<target name="war" depends="compile" description="打war包，不将java文件打入包内">
+		<jar destfile="${target.dir}/${full.package.name}" basedir="${webapp.dir}" />
+	</target>
+
+
+
+
+	<target name="unDeployApp" depends="war">
+		<echo message="卸载应用" />
+		<trycatch>
+			<try>
+				<sshexec host="${server.ip}" username="${server.user}"
+					password="${server.password}" trust="true" command="${weblogic.undeploy};" />
+			</try>
+			<catch>
+				<echo message="卸载应用失败" />
+			</catch>
+		</trycatch>
+	</target>
+
+
+	<!-- 上传全量包 -->
+	<target name="uploadFullPackage" depends="unDeployApp">
+		<echo message="如果本次版本曾经上传过，先删除" />
+		<trycatch>
+			<try>
+				<sshexec host="${server.ip}" username="${server.user}"
+					password="${server.password}" trust="true" command="rm -r ${server.apphome}" />
+			</try>
+			<catch>
+				<echo message="没有本版应用包上传目录" />
+			</catch>
+		</trycatch>
+
+		<echo message="创建本次版本应用包上传目标目录" />
+		<sshexec host="${server.ip}" username="${server.user}"
+			password="${server.password}" trust="true" command="mkdir -p ${server.apphome}" />
+
+		<echo message="上传应用包" />
+		<scp file="${target.dir}/${full.package.name}"
+			todir="${server.user}:${server.password}@${server.ip}:${server.apphome}/${full.package.name}"
+			trust="true" />
+
+		<echo message="解压应用包" />
+		<sshexec host="${server.ip}" username="${server.user}"
+			password="${server.password}" trust="true" command="${unzip};" />
+	</target>
+
+	<target name="deployApp" depends="uploadFullPackage">
+		<echo message="全量部署应用" />
+		<sshexec host="${server.ip}" username="${server.user}"
+			password="${server.password}" trust="true" command="${weblogic.deploy};" />
+	</target>
+
+
+
+	<!-- stop\start -->
+	<!-- target name="restart" depends="deployApp"> <echo message="停服务" /> <sshexec 
+		host="${server.ip}" username="${server.user}" password="${server.password}" 
+		trust="true" command="${domain.stop};sleep 3" /> <echo message="启动服务" /> 
+		<sshexec host="${server.ip}" username="${server.user}" password="${server.password}" 
+		trust="true" command="${domain.start};" /> </target -->
+</project>

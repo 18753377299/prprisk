@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!-- <hibernate-configuration> <session-factory> <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property> 
+	<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/platform?useUnicode=yes&amp;characterEncoding=UTF-8</property> 
+	<property name="hibernate.connection.username">root</property> <property 
+	name="hibernate.connection.password">123456</property> <property name="hibernate.default_schema">platform</property> 
+	<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property> 
+	</session-factory> </hibernate-configuration> -->
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+		<property name="hibernate.connection.url">jdbc:oracle:thin:@11.137.136.6:1521:orcl</property>
+		<property name="hibernate.connection.username">pdfb4dev</property>
+		<property name="hibernate.connection.password">pdfb4dev</property>
+		<property name="hibernate.default_schema">PDFB4DEV</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+	</session-factory>
+</hibernate-configuration>  
