@@ -1,5 +1,6 @@
 $("button.btn-info").click(function(){
 	location.href = contextPath + "/excelTest/export";
+//	location.href = contextPath + "/riskinfo/queryClaimInfo";
 });
 $(function(){
 	if($("#file").val == ""){

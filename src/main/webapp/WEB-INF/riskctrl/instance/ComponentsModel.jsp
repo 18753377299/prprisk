@@ -357,7 +357,7 @@
 												<thead>
 													<tr>
 														<th><fmt:message key="label.riskinfoaddress.serialNo" /></th>
-														<th>地址编号</th>
+														<th>地址编号222</th>
 														<th><fmt:message
 																key="label.riskinfoaddress.riskFileNo" /></th>
 														<th><fmt:message

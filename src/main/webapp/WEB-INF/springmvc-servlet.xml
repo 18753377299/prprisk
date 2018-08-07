@@ -11,6 +11,7 @@
            http://www.springframework.org/schema/context/spring-context.xsd">
 	<!-- 自动扫描且只扫描ins 包下的@Controller标注的类控制器类,可以配置多个 -->
 	<!-- 此处只应该加载表现层组件，如果此处还加载dao层或service层的bean会将之前容器加载的替换掉，而且此处不会进行AOP织入，所以会造成AOP失效问题（如事务不起作用） -->
+	<!-- 	控制@Controller扫描的包 -->
 	<context:component-scan base-package="ins,com.picc"
 		use-default-filters="false">
 		<context:include-filter type="annotation"
@@ -126,12 +127,13 @@
 		<property name="favorPathExtension" value="false" />
 		<!-- 用于开启 /userinfo/123?format=json 的支持 -->
 		<property name="favorParameter" value="false" />
-		<property name="mediaTypes">  <!--favorPathExtension, favorParameter是true时才起作用 -->
+		<property name="mediaTypes"> 
+<!-- 		 favorPathExtension, favorParameter是true时才起作用 -->
 			<map>
-				<!-- <entry key="wml" value="text/vnd.wap.wml"/> -->
-				<!-- <entry key="vnd" value="application/vnd.wap.xhtml+xml"/> -->
-				<!-- <entry key="xhtml" value="application/xhtml+xml"/> -->
-				<!-- <entry key="html" value="*" /> -->
+				<entry key="wml" value="text/vnd.wap.wml"/>
+				<entry key="vnd" value="application/vnd.wap.xhtml+xml"/>
+				<entry key="xhtml" value="application/xhtml+xml"/>
+				<entry key="html" value="*" />
 				<entry key="html" value="text/html" />
 				<entry key="json" value="application/json" />
 			</map>

@@ -225,6 +225,7 @@ $(function() {
 		var temp = JSON.stringify(vm._data);
 		var ajaxEdit = new AjaxEdit("#form");
 		ajaxEdit.targetUrl = contextPath + "/risk/saveVue";
+//		ajaxEdit.targetUrl = contextPath + "/riskinfo/queryClaimInfo";
 		ajaxEdit.afterSuccess = function(obj) {
 			var id = obj.responseJSON.data.book.name;
 			location.href = contextPath + "/risk/showResultVue?id=" + id;

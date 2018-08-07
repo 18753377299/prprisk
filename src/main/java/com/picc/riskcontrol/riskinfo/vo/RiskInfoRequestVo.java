@@ -1,4 +1,4 @@
-package com.riskcontrol.riskinfo.vo;
+package com.picc.riskcontrol.riskinfo.vo;
 
 public class RiskInfoRequestVo {
 	
