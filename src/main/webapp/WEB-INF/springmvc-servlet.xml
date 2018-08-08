@@ -122,22 +122,22 @@
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
 		p:order="1">
 		<!-- 设置为true以忽略对Accept Header的支持 -->
-		<property name="defaultContentType" value="text/html" />
+<!-- 		<property name="defaultContentType" value="text/html" /> -->
 		<!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
-		<property name="favorPathExtension" value="false" />
+<!-- 		<property name="favorPathExtension" value="false" /> -->
 		<!-- 用于开启 /userinfo/123?format=json 的支持 -->
-		<property name="favorParameter" value="false" />
-		<property name="mediaTypes"> 
+<!-- 		<property name="favorParameter" value="false" /> -->
+<!-- 		<property name="mediaTypes">  -->
 <!-- 		 favorPathExtension, favorParameter是true时才起作用 -->
-			<map>
-				<entry key="wml" value="text/vnd.wap.wml"/>
-				<entry key="vnd" value="application/vnd.wap.xhtml+xml"/>
-				<entry key="xhtml" value="application/xhtml+xml"/>
-				<entry key="html" value="*" />
-				<entry key="html" value="text/html" />
-				<entry key="json" value="application/json" />
-			</map>
-		</property>
+<!-- 			<map> -->
+<!-- 				<entry key="wml" value="text/vnd.wap.wml"/> -->
+<!-- 				<entry key="vnd" value="application/vnd.wap.xhtml+xml"/> -->
+<!-- 				<entry key="xhtml" value="application/xhtml+xml"/> -->
+<!-- 				<entry key="html" value="*" /> -->
+<!-- 				<entry key="html" value="text/html" /> -->
+<!-- 				<entry key="json" value="application/json" /> -->
+<!-- 			</map> -->
+<!-- 		</property> -->
 		<property name="viewResolvers">
 			<list>
 				<bean
