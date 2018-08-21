@@ -1,5 +1,12 @@
+/logback.xml
+/redis.properties
+/spring/
 /META-INF/
 /cache/
+/com/
 /config/
+/flyway.xml
 /i18n/
-/spring/
+/ins/
+/logAop.properties
+/org/
