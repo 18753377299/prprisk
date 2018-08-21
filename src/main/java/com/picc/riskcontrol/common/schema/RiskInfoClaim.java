@@ -6,9 +6,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+/**
+ * 典型案例分析表
+ * */
 
 @Entity
 @Table(name="riskinfo_claim")
