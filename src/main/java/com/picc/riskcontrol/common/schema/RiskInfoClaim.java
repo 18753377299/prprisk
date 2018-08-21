@@ -13,6 +13,7 @@ import javax.persistence.Table;
  * 典型案例分析表
  * */
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="riskinfo_claim")
 public class RiskInfoClaim implements Serializable{
